@@ -4,39 +4,39 @@ import numpy as np
 def __sum():
     a = int(input("Nhap a: "))
     b = int(input("Nhap b: "))
-    sum = a + b
-    print(sum)
+    result = a + b
+    print(result)
 
 
 def __matrix():
-    M = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
     v = np.array([1, 2, 3])
-    rank_M = np.linalg.matrix_rank(M)
-    shape_M = M.shape
+    rank_m = np.linalg.matrix_rank(m)
+    shape_m = m.shape
     shape_v = v.shape
-    print("Giới hạn của ma trận M:", rank_M)
-    print("Dạng của ma trận M:", shape_M)
+    print("Giới hạn của ma trận M:", rank_m)
+    print("Dạng của ma trận M:", shape_m)
     print("Dạng của vector V:", shape_v)
 
 
 def new_matrix():
-    M = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    new_matrix = M + 3
+    m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    matrix = m + 3
     print("Ma trận M:")
-    print(M)
+    print(m)
     print("\nMa trận mới sau khi cộng thêm 3:")
-    print(new_matrix)
+    print(matrix)
 
 
 def transpose_matrix():
-    M = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
     v = np.array([1, 2, 3])
-    M_transpose = np.transpose(M)
+    m_transpose = np.transpose(m)
     v_transpose = np.transpose(v)
     print("Ma trận M:")
-    print(M)
+    print(m)
     print("\nBiến đổi ma trận M:")
-    print(M_transpose)
+    print(m_transpose)
     print("\nVector v:")
     print(v)
     print("\nBiến đổi vector v:")
