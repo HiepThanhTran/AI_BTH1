@@ -1,89 +1,6 @@
 import pandas as pd
 
-filename = 'data.tsv'
-
-# 1. Show the first 5 lines of the TSV file
-try:
-    with open(filename, 'r') as f:
-        for i in range(5):
-            line = f.readline()
-            print(line.strip())
-except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
-
-# 2. Find the number of rows and columns using read_csv with a sample
-try:
-    df = pd.read_csv(filename, nrows=1, delimiter='\t')  # Read only 1 row for efficiency
-    num_rows, num_cols = df.shape
-    print(f"Number of rows: {num_rows}")
-    print(f"Number of columns: {num_cols}")
-except pd.errors.EmptyDataError:
-    print("The file is empty or has no valid data.")
-except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
-
-# 3. Print the name of the columns
-try:
-    df = pd.read_csv(filename, delimiter='\t')
-    column_names = df.columns.tolist()
-    print("Column names:", column_names)
-except pd.errors.EmptyDataError:
-    print("The file is empty or has no valid data.")
-except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
-
-# 4. What is the type of the column names?
-try:
-    df = pd.read_csv(filename, delimiter='\t')
-    column_names_type = type(df.columns)
-    print(f"Type of column names: {column_names_type}")  # Output: <class 'pandas.core.indexes.base.Index'>
-except pd.errors.EmptyDataError:
-    print("The file is empty or has no valid data.")
-except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
-
-# 5. Get the country column and save it to a variable. Show the first 5 observations.
-try:
-    df = pd.read_csv(filename, delimiter='\t')
-    country_column = df['country']
-    print("First 5 observations of 'country':")
-    print(country_column.head())
-except pd.errors.EmptyDataError:
-    print("The file is empty or has no valid data.")
-except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
-except KeyError:
-    print("The 'country' column does not exist in the file.")
-
-# 6. Show the last 5 observations of the country column
-try:
-    df = pd.read_csv(filename, delimiter='\t')
-    country_column = df['country']
-    print("Last 5 observations of 'country':")
-    print(country_column.tail())
-except pd.errors.EmptyDataError:
-    print("The file is empty or has no valid data.")
-except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
-except KeyError:
-    print("The 'country' column does not exist in the file.")
-
-# 7. Look at country, continent, and year. Show the first 5 and last 5 observations.
-try:
-    df = pd.read_csv(filename, delimiter='\t')
-    selected_columns = ['country', 'continent', 'year']
-    if all(col in df.columns for col in selected_columns):
-        print("First 5 observations of 'country', 'continent', and 'year':")
-        print(df[selected_columns].head())
-        print("Last 5 observations of 'country', 'continent', and 'year':")
-        print(df[selected_columns].tail())
-    else:
-        missing_cols = [col for col in selected_columns if col not in df.columns]
-        print(f"Columns '{', '.join(missing_cols)}' not found in the file.")
-except pd.errors.EmptyDataError:
-    print("The file is empty or has no valid data.")
-except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
+path = 'data.tsv'
 
 
 # Error handling for file operations
@@ -96,19 +13,86 @@ def handle_file_errors(error_type, filename):
         print(f"An unexpected error occurred: {error_type}")
 
 
+# 1. Show the first 5 lines of the TSV file
+try:
+    df = pd.read_csv(path, delimiter='\t')
+    print(df.head())
+except Exception as e:
+    handle_file_errors(e, path)
+
+# 2. Find the number of rows and columns using read_csv with a sample
+try:
+    df = pd.read_csv(path, nrows=1, delimiter='\t')  # Read only 1 row for efficiency
+    num_rows, num_cols = df.shape
+    print(f"Number of rows: {num_rows}")
+    print(f"Number of columns: {num_cols}")
+except Exception as e:
+    handle_file_errors(e, path)
+
+# 3. Print the name of the columns
+try:
+    df = pd.read_csv(path, delimiter='\t')
+    column_names = df.columns.tolist()
+    print("Column names:", column_names)
+except Exception as e:
+    handle_file_errors(e, path)
+
+# 4. What is the type of the column names?
+try:
+    df = pd.read_csv(path, delimiter='\t')
+    column_names_type = type(df.columns)
+    print(f"Type of column names: {column_names_type}")  # Output: <class 'pandas.core.indexes.base.Index'>
+except Exception as e:
+    handle_file_errors(e, path)
+
+# 5. Get the country column and save it to a variable. Show the first 5 observations.
+try:
+    df = pd.read_csv(path, delimiter='\t')
+    country_column = df['country']
+    print("First 5 observations of 'country':")
+    print(country_column.head())
+except Exception as e:
+    handle_file_errors(e, path)
+
+# 6. Show the last 5 observations of the country column
+try:
+    df = pd.read_csv(path, delimiter='\t')
+    country_column = df['country']
+    print("Last 5 observations of 'country':")
+    print(country_column.tail())
+except KeyError:
+    print("The 'country' column does not exist in the file.")
+except Exception as e:
+    handle_file_errors(e, path)
+
+# 7. Look at country, continent, and year. Show the first 5 and last 5 observations.
+try:
+    df = pd.read_csv(path, delimiter='\t')
+    selected_columns = ['country', 'continent', 'year']
+    if all(col in df.columns for col in selected_columns):
+        print("First 5 observations of 'country', 'continent', and 'year':")
+        print(df[selected_columns].head())
+        print("Last 5 observations of 'country', 'continent', and 'year':")
+        print(df[selected_columns].tail())
+    else:
+        missing_cols = [col for col in selected_columns if col not in df.columns]
+        print(f"Columns '{', '.join(missing_cols)}' not found in the file.")
+except Exception as e:
+    handle_file_errors(e, path)
+
 # 8. Get the first row of the TSV file using two methods:
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     print("First row using .head(1):")
     print(df.head(1))
     print("First row using .iloc[0]:")
     print(df.iloc[0])
 except Exception as e:  # Catch any exception related to file operations
-    handle_file_errors(e, filename)
+    handle_file_errors(e, path)
 
 # 9. Get the first column and first/last column by integer index:
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     print("First column:")
     print(df.iloc[:, 0])  # Access all rows, column index 0
     print("First and last columns:")
@@ -116,19 +100,19 @@ try:
     last_col = df.iloc[:, -1]
     print(pd.concat([first_col, last_col], axis=1))  # Combine into DataFrame
 except Exception as e:
-    handle_file_errors(e, filename)
+    handle_file_errors(e, path)
 
 # 10. Get the last row using .loc and negative indexing:
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     print("Last row using .loc[-1]:")
     print(df.loc[-1])  # Using -1 for the last index
 except Exception as e:
-    handle_file_errors(e, filename)
+    handle_file_errors(e, path)
 
 # 11. Select the first, 100th, and 1000th rows using .iloc and .loc:
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     print("First, 100th, 1000th rows using .iloc:")
     print(df.iloc[[0, 99, 999]])  # Access rows 0, 99, 999 (handle potential IndexError)
     print("First, 100th, 1000th rows using .loc (assuming index starts from 0):")
@@ -138,11 +122,11 @@ except IndexError:
 except KeyError:
     print("The file may not have an index starting from 0 or may not have 1000 rows.")
 except Exception as e:
-    handle_file_errors(e, filename)
+    handle_file_errors(e, path)
 
 # 12. Get the 43rd country using .loc and .iloc (assuming 'country' is a column):
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     if 'country' in df.columns:
         print("43rd country using .loc (assuming index starts from 0):")
         print(df.loc[42, 'country'])  # Access row 42 (zero-based), 'country' column
@@ -151,11 +135,11 @@ try:
     else:
         print("The 'country' column does not exist in the file.")
 except Exception as e:
-    handle_file_errors(e, filename)
+    handle_file_errors(e, path)
 
 # 13. Get the first, 100th, 1000th rows from the first, 4th and 6th columns:
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     cols = [0, 3, 5]  # First, 4th, and 6th columns (zero-based indexing)
 
     # Define desired rows (manage potential IndexError)
@@ -172,21 +156,21 @@ try:
     print(subset)
 
 except Exception as e:
-    handle_file_errors(e, filename)
+    handle_file_errors(e, path)
 
 # 14. Get the first 10 rows of your data
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     print("First 10 rows:")
     print(df.head(10))
 except pd.errors.EmptyDataError:
     print("The file is empty or has no valid data.")
 except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
+    print(f"Error: File '{path}' not found.")
 
 # 15. Average life expectancy for each year
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     if 'year' in df.columns:  # Check if 'year' column exists
         print("Average life expectancy for each year:")
         print(df.groupby('year')['life_expectancy'].mean())  # Group by year and calculate mean
@@ -195,11 +179,11 @@ try:
 except pd.errors.EmptyDataError:
     print("The file is empty or has no valid data.")
 except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
+    print(f"Error: File '{path}' not found.")
 
 # 16. Subsetting method for average life expectancy (alternative to 15)
 try:
-    df = pd.read_csv(filename, delimiter='\t')
+    df = pd.read_csv(path, delimiter='\t')
     if 'year' in df.columns:  # Check if 'year' column exists
         year_groups = df.groupby('year')
         avg_life_expectancy = year_groups['life_expectancy'].mean()
@@ -210,7 +194,7 @@ try:
 except pd.errors.EmptyDataError:
     print("The file is empty or has no valid data.")
 except FileNotFoundError:
-    print(f"Error: File '{filename}' not found.")
+    print(f"Error: File '{path}' not found.")
 
 # 17. Create a Series with index for 'banana' and '42'
 series = pd.Series(['banana', 42], index=['Person', 'Who'])
